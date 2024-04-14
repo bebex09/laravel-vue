@@ -9,3 +9,4 @@ Route::delete('delete_contact/{id}',[App\Http\Controllers\ContactController::cla
 Route::get('get_contact/{id}',[App\Http\Controllers\ContactController::class,'getContact']);
 Route::post('update_contact/{id}',[App\Http\Controllers\ContactController::class,'updateContact']);
 Route::post('login',[App\Http\Controllers\AuthController::class,'login']);
+Route::post('register',[App\Http\Controllers\AuthController::class,'register']);
