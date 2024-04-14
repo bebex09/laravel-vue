@@ -18,4 +18,5 @@
 - logout
 - dashboard
 - list of products
+- alerts
   
