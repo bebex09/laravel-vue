@@ -86,7 +86,7 @@
                         console.log(response);
                         if(response.status == 200){
                             alert(response.data.message);
-                            this.$router.push('/');
+                            this.$router.push('/contacts');
                         }else{
                             console.log('error');
                         }
