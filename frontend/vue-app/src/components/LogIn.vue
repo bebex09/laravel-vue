@@ -6,15 +6,20 @@
           <div class="card">
             <div class="card-header bg-primary text-white">Log In</div>
             <div class="card-body">
-              <form>
+              <div class="alert alert-danger mt-4" v-if="errors.length">
+                <ul class="mb-0">
+                  <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+                </ul>
+              </div>
+              <form @submit.prevent="handleSubmit">
                 <div class="form-group">
                   <label for="email_address">E-Mail Address</label>
-                  <input type="email" class="form-control" required autofocus placeholder="Email">
+                  <input type="email" v-model="email" class="form-control" required autofocus placeholder="Email">
                 </div>
 
                 <div class="form-group">
                   <label for="password">Password</label>
-                  <input type="password" class="form-control" placeholder="Password" required>
+                  <input type="password" v-model="password" class="form-control" placeholder="Password" required>
                 </div>
 
                 <div class="form-group">
@@ -38,7 +43,35 @@
 </template>
 
 <script>
+
+import axios from 'axios';
+
 export default {
-    name: 'LogIn'
-}
+  name: 'LogIn',
+  data() {
+    return {
+      email: '',
+      password: '',
+      errors: []
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      this.errors = [];
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/login', {
+          email: this.email,
+          password: this.password
+        });
+        
+        localStorage.setItem('token', response.data.token);
+        this.store.dispatch('user', response.data.user);
+        this.$router.push('/');
+        
+      } catch (error) {
+        this.errors.push(error.response.data.message || 'An error occurred.');
+      }
+    }
+  }
+};
 </script>

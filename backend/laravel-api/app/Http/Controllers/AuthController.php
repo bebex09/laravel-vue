@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     public function login(Request $request){
+
         if (Auth::attempt($request->only('email', 'password'))) {
+            /** @var User $user */
             $user = Auth::user();
             $token = $user->createToken('app')->accessToken;
         
@@ -42,5 +44,9 @@ class AuthController extends Controller
             ], 400);
         }
         
+    }
+
+    public function user(){
+        return Auth::user();
     }
 }

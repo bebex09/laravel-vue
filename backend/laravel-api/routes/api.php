@@ -10,3 +10,4 @@ Route::get('get_contact/{id}',[App\Http\Controllers\ContactController::class,'ge
 Route::post('update_contact/{id}',[App\Http\Controllers\ContactController::class,'updateContact']);
 Route::post('login',[App\Http\Controllers\AuthController::class,'login']);
 Route::post('register',[App\Http\Controllers\AuthController::class,'register']);
+Route::get('user',[App\Http\Controllers\AuthController::class,'user'])->middleware('auth:api');

@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">{{ title }}</a>
+        <router-link class="navbar-brand" to="/">{{ title }}</router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,12 +17,17 @@
             <router-link class="nav-link" to="add">Add Contact</router-link>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto" v-if="!user">
             <li class="nav-item">
                 <router-link to="login" class="nav-link">Log in</router-link>
             </li>
             <li class="nav-item">
                 <router-link to="register" class="nav-link">Sign Up</router-link>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto" v-if="user">
+            <li class="nav-item">
+                <a href="javascript:void(0)" @click="handleClick" class="nav-link">Log out</a>
             </li>
         </ul>
         </div>
@@ -31,11 +36,18 @@
 </template>
 
 <script>
+    import {mapGetters}
     /* eslint-disable vue/multi-word-component-names */
     export default{
         name: 'Header',
         props: {
-            title: String
+            title: String,
+        },
+        methods:{
+            handleClick(){
+                localStorage.removeItem('token');
+                this.$router.push('/');
+            }
         }
     }
 </script>

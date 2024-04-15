@@ -77,6 +77,8 @@ export default {
 
               let url = 'http://127.0.0.1:8000/api/register';
               await axios.post(url, formData).then((response) => {
+                  alert('success');
+                  this.$router.push('/login');
                   console.log(response);
               }).catch(error => {
                   
