@@ -10,10 +10,12 @@
 </template>
 
 <script>
-
+import {mapGetters} from 'vuex'
 /* eslint-disable vue/multi-word-component-names */
 export default {
   name: 'Dashboard',
-  props:['user']
+  computed:{
+      ...mapGetters(['user'])
+  }
 }
 </script>

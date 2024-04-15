@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import {mapGetters}
+    import {mapGetters} from 'vuex'
     /* eslint-disable vue/multi-word-component-names */
     export default{
         name: 'Header',
@@ -47,6 +47,9 @@
             handleClick(){
                 localStorage.removeItem('token');
                 this.$router.push('/');
+            },
+            computed:{
+                ...mapGetters(['user'])
             }
         }
     }
