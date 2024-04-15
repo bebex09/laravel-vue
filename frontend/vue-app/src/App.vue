@@ -1,21 +1,15 @@
 <template>
-    <Header title="Vue.js+Laravel API" />
+    <Header/>
     <router-view ></router-view>
 </template>
 
 <script>
-import axios from 'axios';
 import Header from './components/Header.vue'
+import axios from 'axios';
   export default {
     name: 'App',
     components: {
       Header
-    },
-    data(){
-      return{
-          user: null,
-
-      }
     },
     async created() {
       try {
@@ -25,7 +19,7 @@ import Header from './components/Header.vue'
           }
         });
         
-        this.store.dispatch('user', response.data);
+        this.$store.dispatch('user', response.data);
 
       } catch (error) {
         console.log(error.response.data.message)

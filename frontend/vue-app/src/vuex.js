@@ -10,12 +10,12 @@ const store = createStore({
     }
   },
   actions: {
-    setUser(context, user) { // Renamed action to 'setUser'
-      context.commit('SET_USER', user); // Committing mutation 'SET_USER'
+    user(context, user) { 
+      context.commit('user', user);
     }
   },
   mutations: {
-    SET_USER(state, user) { // Mutation to set the user
+    user(state, user) { 
       state.user = user;
     }
   }

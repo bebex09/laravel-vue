@@ -29,7 +29,7 @@
                   </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block mt-4">Login</button>
+                <button class="btn btn-primary btn-block mt-4">Login</button>
                 <div class="text-center mt-3">
                   <a href="#" class="btn btn-link">Forgot Your Password?</a>
                 </div>
@@ -63,9 +63,9 @@ export default {
           email: this.email,
           password: this.password
         });
-        
         localStorage.setItem('token', response.data.token);
-        this.store.dispatch('user', response.data.user);
+        
+        this.$store.dispatch('user', response.data.user);
         this.$router.push('/');
         
       } catch (error) {
