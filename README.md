@@ -4,7 +4,7 @@
 
 - Clone the repository with __git clone__
 - Run `php artisan serve` and enter the URL shown in the Terminal.
-- Run __php artisan migrate --seed__ (it has some seeded data for your testing)
+- Run __php artisan db:seed__ (it has some seeded data for your testing)
 
 
 ### Front-end Code: Vue.js
