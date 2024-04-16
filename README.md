@@ -1,15 +1,13 @@
 ## How to use
 
-### Back-end Code: Laravel
-
 - Clone the repository with __git clone__
+
+### Back-end Code: Laravel
 - Run `php artisan serve` and enter the URL shown in the Terminal.
 - Run `php artisan db:seed` (UserTableSeeders)
 
 
 ### Front-end Code: Vue.js
-
-- Clone the repository with __git clone__
 - Run `npm run serve` and enter the URL shown in the Terminal.
 
 ### Not yet Done
