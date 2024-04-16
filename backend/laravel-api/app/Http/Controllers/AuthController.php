@@ -46,7 +46,22 @@ class AuthController extends Controller
         
     }
 
-    public function user(){
-        return Auth::user();
+    public function user()
+{
+    // Retrieve the authenticated user using the Auth facade
+    $user = Auth::user();
+
+    // Check if a user is authenticated
+    if ($user) {
+        // If a user is authenticated, return the user object
+        return response()->json([
+            'user' => $user
+        ]);
+    } else {
+        // If no user is authenticated, return an error response
+        return response()->json([
+            'message' => 'Unauthenticated'
+        ], 401);
     }
+}
 }

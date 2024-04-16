@@ -2,21 +2,31 @@ import { createStore } from 'vuex';
 
 const store = createStore({
   state: {
-    user: null
+    user: null,
+    token: localStorage.getItem('token') || null
   },
-  getters: {
-    user: state => {
-      return state.user;
+  mutations: {
+    setUser(state, user) {
+      state.user = user;
+    },
+    setToken(state, token) {
+      state.token = token;
+      localStorage.setItem('token', token);
     }
   },
   actions: {
-    user(context, user) { 
-      context.commit('user', user);
+     // Define the 'user' action here if needed
+    user(context, user) {
+    context.commit('setUser', user);
+    console.log(user)
     }
   },
-  mutations: {
-    user(state, user) { 
-      state.user = user;
+  getters: {
+    user(state) {
+    return state.user;
+    },
+    token(state) {
+    return state.token;
     }
   }
 });

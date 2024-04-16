@@ -43,7 +43,6 @@
 </template>
 
 <script>
-
 import axios from 'axios';
 
 export default {
@@ -57,21 +56,25 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      this.errors = [];
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/api/login', {
-          email: this.email,
-          password: this.password
-        });
+    this.errors = [];
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/login', {
+        email: this.email,
+        password: this.password
+      });
+      if (response.data && response.data.token) {
         localStorage.setItem('token', response.data.token);
-        
-        this.$store.dispatch('user', response.data.user);
+        this.$store.dispatch('user',{user: response.data.user, token: response.data.token}); 
         this.$router.push('/');
-        
-      } catch (error) {
-        this.errors.push(error.response.data.message || 'An error occurred.');
+      } else {
+        throw new Error('Token not found in API response');
       }
+    } catch (error) {
+      console.error('API Request Error:', error);
+      this.errors.push(error.response.data.message || 'An error occurred.');
     }
+  }
   }
 };
 </script>
+

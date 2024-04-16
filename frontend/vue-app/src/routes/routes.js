@@ -4,6 +4,7 @@ import EditContact from '../components/EditContact';
 import LogIn from '../components/LogIn';
 import Register from '../components/Register';
 import Dashboard from '../components/Dashboard';
+import Products from '../components/Products';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -21,6 +22,11 @@ const routes = [
         name: 'Register',
         path: '/register',
         component: Register
+    },
+    {
+        name: 'Products',
+        path: '/products',
+        component: Products
     },
     {
         name: 'ContactList',
