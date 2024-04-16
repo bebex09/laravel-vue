@@ -1,17 +1,18 @@
 <template>
   <div class="container">
-    <h1 v-if="user" class="header">
-        Hi, {{user.first_name}} {{user.last_name}}
-    </h1>
-    <h1 v-if="!user">
+    <div v-if="user" class="alert alert-secondary mt-4" bis_skin_checked="1">
+      <h4 class="alert-heading">Hello!</h4>
+      <p class="mb-0">You are now Logged In.</p>
+    </div>
+    <div v-if="!user" class="alert alert-danger mt-4" bis_skin_checked="1">
         You are not logged in
-    </h1>
+    </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
 /* eslint-disable vue/multi-word-component-names */
+import {mapGetters} from 'vuex'
 export default {
   name: 'Dashboard',
   computed:{

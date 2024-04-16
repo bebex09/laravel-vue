@@ -26,6 +26,7 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto" v-if="user">
+            <p class="navbar-text">Hi, {{user.first_name}} {{user.last_name}} </p>
             <li class="nav-item">
                 <a href="javascript:void(0)" @click="handleClick" class="nav-link">Log out</a>
             </li>

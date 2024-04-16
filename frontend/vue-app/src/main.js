@@ -1,9 +1,9 @@
-import { createApp } from 'vue'; // Import createApp from 'vue'
+import { createApp } from 'vue';
 import App from './App.vue';
 import routes from './routes/routes';
 import store from './vuex';
 
-const app = createApp(App); // Create the Vue app instance
+const app = createApp(App);
 
 // Use Vue Router and Vuex
 app.use(routes);
