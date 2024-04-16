@@ -4,7 +4,7 @@
 
 - Clone the repository with __git clone__
 - Run `php artisan serve` and enter the URL shown in the Terminal.
-- Run __php artisan db:seed__ (UserTableSeeders)
+- Run `php artisan db:seed` (UserTableSeeders)
 
 
 ### Front-end Code: Vue.js
