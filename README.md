@@ -11,9 +11,9 @@
 - Run `npm run serve` and enter the URL shown in the Terminal.
 
 ### Not yet Done
-- login process
+- ~~login process~~
 - session
-- logout
+- ~~logout~~
 - dashboard
 - list of products
 - alerts
