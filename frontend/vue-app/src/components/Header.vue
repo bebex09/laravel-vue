@@ -32,7 +32,7 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto" v-if="user">
-            <li class="navbar-text">Hi, {{ user.user.first_name }} {{ user.user.last_name }}</li> 
+            <!-- <li class="navbar-text">Hi, {{ user.user.first_name }} {{ user.user.last_name }}</li>  -->
             <li class="nav-item">
                 <a href="javascript:void(0)" @click="handleClick" class="nav-link">Log out</a>
             </li>
@@ -50,10 +50,9 @@
         methods:{
             handleClick(){
                 localStorage.removeItem('token');
-                localStorage.removeItem('user');
-                this.$store.dispatch('user', null);
+                this.$store.commit('setUser', null); // Commit the mutation directly
                 this.$router.push('/');
-            }
+            }   
             
         },
         computed:{

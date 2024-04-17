@@ -55,24 +55,30 @@ export default {
     };
   },
   methods: {
-    async handleSubmit() {
-      this.errors = [];
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/api/login', {
-          email: this.email,
-          password: this.password
-        });
+  async handleSubmit() {
+    this.errors = [];
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/login', {
+        email: this.email,
+        password: this.password
+      });
 
-        localStorage.setItem('token', response.data.token);
-        this.$store.dispatch('user',{user: response.data.user, token: response.data.token}); 
-        this.$router.push('/');
+      // Store user data as stringified JSON in local storage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
 
-      } catch (error) {
-        console.error('API Request Error:', error);
-        this.errors.push(error.response.data.message || 'An error occurred.');
-      }
+      // Dispatch 'setUser' action with the user data
+      this.$store.dispatch('user', response.data.user);
+
+      // Redirect to the home page
+      this.$router.push('/');
+    } catch (error) {
+      console.error('API Request Error:', error);
+      this.errors.push(error.response.data.message || 'An error occurred.');
     }
   }
+}
+
 };
 </script>
 

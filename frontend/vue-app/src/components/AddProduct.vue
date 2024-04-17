@@ -60,7 +60,7 @@ export default {
 
         const response = await this.postProduct(user.id, token);
         console.log('Product added:', response.data);
-        alert(user.id);
+      
         // Handle successful response
       } catch (error) {
         console.error('Error adding product:', error);
