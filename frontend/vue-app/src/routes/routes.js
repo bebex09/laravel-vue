@@ -4,7 +4,8 @@ import EditContact from '../components/EditContact';
 import LogIn from '../components/LogIn';
 import Register from '../components/Register';
 import Dashboard from '../components/Dashboard';
-import Products from '../components/Products';
+import AddProduct from '../components/AddProduct';
+import ProductList from '../components/ProductList';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -24,9 +25,14 @@ const routes = [
         component: Register
     },
     {
-        name: 'Products',
+        name: 'AddProduct',
+        path: '/add_products',
+        component: AddProduct
+    },
+    {
+        name: 'ProductList',
         path: '/products',
-        component: Products
+        component: ProductList
     },
     {
         name: 'ContactList',

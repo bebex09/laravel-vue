@@ -36,7 +36,6 @@ class AuthController extends Controller
                 'email'=> $request->email,
                 'password'=> Hash::make($request->password)
             ]);
-    
             return $user;
         }catch(\Exception $e){
             return response()->json([
@@ -46,22 +45,16 @@ class AuthController extends Controller
         
     }
 
-    public function user()
-{
-    // Retrieve the authenticated user using the Auth facade
-    $user = Auth::user();
-
-    // Check if a user is authenticated
-    if ($user) {
-        // If a user is authenticated, return the user object
-        return response()->json([
-            'user' => $user
-        ]);
-    } else {
-        // If no user is authenticated, return an error response
-        return response()->json([
-            'message' => 'Unauthenticated'
-        ], 401);
+    public function user(){
+        $user = Auth::user();
+        if ($user) {
+            return response()->json([
+                'user' => $user
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Unauthenticated'
+            ], 401);
+        }
     }
-}
 }

@@ -10,9 +10,14 @@ Route::get('get_contact/{id}',[App\Http\Controllers\ContactController::class,'ge
 Route::post('update_contact/{id}',[App\Http\Controllers\ContactController::class,'updateContact']);
 Route::post('login',[App\Http\Controllers\AuthController::class,'login']);
 Route::post('register',[App\Http\Controllers\AuthController::class,'register']);
+
 Route::get('user',[App\Http\Controllers\AuthController::class,'user'])->middleware('auth:api');
 
 //store product
 Route::middleware('auth:api')->group(function () {
 Route::post('store', [App\Http\Controllers\ProductController::class,'store']);
 });
+
+//get products by user_id
+Route::get('products',[App\Http\Controllers\ProductController::class,'products'])->middleware('auth:api');
+

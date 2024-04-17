@@ -38,7 +38,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'Products',
+  name: 'AddProduct',
   data() {
     return {
       formData: {
@@ -51,34 +51,41 @@ export default {
   },
   methods: {
     async submitData() {
-      const token = this.$store.getters.token;
-      const user = this.$store.getters.user;
-
-      if (!user) {
-        console.error('User not logged in');
-        return;
-      }
-
       try {
-        const response = await axios.post('http://127.0.0.1:8000/api/store', {
-          ...this.formData,
-          user_id: user.id
-          
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const { token, user } = this.getUserData();
+        if (!user) {
+          console.error('User not logged in');
+          return;
+        }
 
-        // Handle success
-        console.log(user_id);
+        const response = await this.postProduct(user.id, token);
+        console.log('Product added:', response.data);
+        alert(user.id);
+        // Handle successful response
       } catch (error) {
         console.error('Error adding product:', error);
         // Handle error
       }
+    },
+    getUserData() {
+      const token = this.$store.getters.token;
+      const user = this.$store.getters.user;
+      return { token, user };
+    },
+    async postProduct(userId, token) {
+      const response = await axios.post('http://127.0.0.1:8000/api/store', {
+        ...this.formData,
+        user_id: userId
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response;
     }
   }
 }
+
 
 
 </script>

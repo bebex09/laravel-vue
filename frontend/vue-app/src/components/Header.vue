@@ -17,7 +17,10 @@
             <router-link class="nav-link" to="add">Add Contact</router-link>
             </li>
             <li class="nav-item" v-if="user">
-                <router-link class="nav-link" to="products">Add Products</router-link>
+                <router-link class="nav-link" to="add_products">Add Products</router-link>
+            </li>
+            <li class="nav-item" v-if="user">
+                <router-link class="nav-link" to="products">Products</router-link>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto" v-if="!user">
@@ -29,7 +32,7 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto" v-if="user">
-            <li class="navbar-text">Hi, {{user.first_name}} {{user.last_name}}</li> 
+            <li class="navbar-text">Hi, {{ user.user.first_name }} {{ user.user.last_name }}</li> 
             <li class="nav-item">
                 <a href="javascript:void(0)" @click="handleClick" class="nav-link">Log out</a>
             </li>
@@ -47,14 +50,11 @@
         methods:{
             handleClick(){
                 localStorage.removeItem('token');
+                localStorage.removeItem('user');
                 this.$store.dispatch('user', null);
                 this.$router.push('/');
             }
             
-        },
-        created() {
-            // Debugging: Log the user object when the component is created
-            console.log('User:', this.user);
         },
         computed:{
             ...mapGetters(['user'])
