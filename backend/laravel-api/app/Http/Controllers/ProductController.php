@@ -12,9 +12,7 @@ class ProductController extends Controller{
         if (!Auth::check()) {
             return response()->json(['error' => 'Unauthenticated'], 401);
         }
-
         $user = Auth::user();
-
         $data = $request->validate([
             'name' => 'required',
             'qty' => 'required|numeric',
@@ -24,7 +22,6 @@ class ProductController extends Controller{
 
         $data['user_id'] = $request->user()->id;
         $newProduct = Products::create($data);
-        
         return response()->json([
             'message' => 'Product created successfully'
         ], 201);
@@ -41,6 +38,49 @@ class ProductController extends Controller{
     public function getProduct($id){
         $product = Products::find($id);
         return response()->json($product);
+    }
+
+    public function updateProduct($id, Request $request){
+
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthenticated'], 401);
+        }
+        $user = Auth::user();
+
+        $product = Products::where('id', $id)->first();
+
+        $product->name = $request->name;
+        $product->qty = $request->qty;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product['user_id'] = $request->user()->id;
+        $product->save();
+        return response()->json([
+            'message' => 'Contact Updated Succesfully',
+            'code'=> 200
+        ]);
+    }
+
+    public function deleteProduct($id,Request $request){
+
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthenticated'], 401);
+        }
+        $user = Auth::user();
+        $product = Products::find($id);
+        $product['user_id'] = $request->user()->id;
+        
+        if($product){
+            $product->delete();
+            return response()->json([
+                'message'=> 'Contact Deleted Succesfully',
+                'code'=> 200
+            ]);
+        }else{
+            return response()->json([
+                'message'=> "Contact with id:$id does not exist",
+            ]);
+        }
     }
 
 }

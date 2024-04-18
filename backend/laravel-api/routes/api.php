@@ -21,6 +21,12 @@ Route::post('store', [App\Http\Controllers\ProductController::class,'store']);
 //get products by user_id
 Route::get('products',[App\Http\Controllers\ProductController::class,'products'])->middleware('auth:api');
 
-//get product
+//get product by id
 Route::get('getProduct/{id}',[App\Http\Controllers\ProductController::class,'getProduct']);
+
+//update product
+Route::post('update_product/{id}',[App\Http\Controllers\ProductController::class,'updateProduct'])->middleware('auth:api');
+
+//delete product
+Route::post('delete_product/{id}',[App\Http\Controllers\ProductController::class,'deleteProduct'])->middleware('auth:api');
 

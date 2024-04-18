@@ -8,25 +8,22 @@ const store = createStore({
   mutations: {
     setUser(state, user) {
       state.user = user;
-      // Save user to local storage
       localStorage.setItem('user', JSON.stringify(user));
     },
     setToken(state, token) {
       state.token = token;
-      // Save token to local storage
       localStorage.setItem('token', token);
     }
   },
   actions: {
     logout({ commit }) {
       localStorage.removeItem('token');
-      commit('setUser', null); // Commit the mutation directly
+      commit('setUser', null);
     },
     user({ commit }) {
-      //Initialize state from local storage when Vuex store is created
       const user = JSON.parse(localStorage.getItem('user'));
       const token = localStorage.getItem('token');
-      commit('setUser', user); // Commit the setUser mutation directly
+      commit('setUser', user);
       commit('setToken', token);
     }
   },
@@ -40,14 +37,12 @@ const store = createStore({
   }
 });
 
-// Initialize state from local storage when Vuex store is created
 const user = JSON.parse(localStorage.getItem('user'));
 const token = localStorage.getItem('token');
 
 if (user) {
-  store.commit('setUser', user); // Commit the setUser mutation directly
+  store.commit('setUser', user);
 }
-
 if (token) {
   store.commit('setToken', token);
 }

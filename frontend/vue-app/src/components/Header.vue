@@ -52,12 +52,10 @@
                 localStorage.removeItem('token');
                 this.$store.commit('setUser', null); 
                 this.$router.push('/');
-            }   
-            
+            }      
         },
         computed:{
             ...mapGetters(['user'])
-        }
-        
+        }   
     }
 </script>

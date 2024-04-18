@@ -44,7 +44,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
   name: 'LogIn',
   data() {
@@ -55,30 +54,25 @@ export default {
     };
   },
   methods: {
-  async handleSubmit() {
-    this.errors = [];
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login', {
-        email: this.email,
-        password: this.password
-      });
+    async handleSubmit() {
+      this.errors = [];
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/login', {
+          email: this.email,
+          password: this.password
+        });
 
-      // Store user data as stringified JSON in local storage
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        this.$store.dispatch('user', response.data.user);
+        this.$router.push('/');
 
-      // Dispatch 'setUser' action with the user data
-      this.$store.dispatch('user', response.data.user);
-
-      // Redirect to the home page
-      this.$router.push('/');
-    } catch (error) {
-      console.error('API Request Error:', error);
-      this.errors.push(error.response.data.message || 'An error occurred.');
+      } catch (error) {
+        console.error('API Request Error:', error);
+        this.errors.push(error.response.data.message || 'An error occurred.');
+      }
     }
   }
-}
-
 };
 </script>
 

@@ -54,17 +54,15 @@ export default {
       try {
         const { token, user } = this.getUserData();
         if (!user) {
-          console.error('User not logged in');
+          alert('User not logged in');
           return;
         }
 
         const response = await this.postProduct(user.id, token);
-        console.log('Product added:', response.data);
-      
-        // Handle successful response
+        alert('New Product Added!');
+        this.$router.push('/products');
       } catch (error) {
         console.error('Error adding product:', error);
-        // Handle error
       }
     },
     getUserData() {
@@ -85,7 +83,4 @@ export default {
     }
   }
 }
-
-
-
 </script>

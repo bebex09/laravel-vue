@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-12">
-          <div class="card" v-if="user && products.data.length > 0">
+          <div class="card">
             <div class="card-header bg-primary text-white">Products</div>
             <div class="card-body">
               <table class="table table-hover">
@@ -17,9 +17,10 @@
                     <th class="col-3" colspan="2">Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="user && products.data.length > 0">
+                  <!-- Table rows for products -->
                   <tr v-for="(product, index) in products.data" :key="product.id">
-                    <td>{{ calculateIndex(index) }}</td> <!-- Incrementing number starting from 1 -->
+                    <td>{{ calculateIndex(index) }}</td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.qty }}</td>
                     <td>{{ product.price }}</td>
@@ -31,12 +32,17 @@
                     </td>
                     <td>  
                       <div class="d-grid">
-                        <button class="btn btn-sm btn-danger rounded-pill" type="button">Delete</button>
+                        <button  @click.prevent="deleteData(product.id)" class="btn btn-sm btn-danger rounded-pill" type="button">Delete</button>
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td colspan="7">Total Products: {{ products.total }}</td>
+                  </tr>
+                </tbody>
+                <tbody v-else>
+                  <tr>
+                    <td colspan="7" class="text-center">No data</td>
                   </tr>
                 </tbody>
               </table>
@@ -51,9 +57,6 @@
                 </ul>
               </nav>
             </div>
-          </div>
-          <div v-else>
-            <p>Loading...</p>
           </div>
         </div>
       </div>
@@ -111,7 +114,37 @@ export default {
       if (this.products.current_page > 1) {
         this.fetchProducts(this.products.current_page - 1);
       }
-    }
+    },
+    async deleteData(id) {
+      try {
+        const { token, user } = this.getUserData();
+        if (!user) {
+          console.error('User not logged in');
+          return;
+        }
+        const response = await this.deleteProduct(id, user.id, token);
+        return response;
+      } catch (error) {
+        console.error('Error adding product:', error);
+      }
+    },
+    getUserData() {
+      const token = this.$store.getters.token;
+      const user = this.$store.getters.user;
+      return { token, user };
+    },
+    async deleteProduct(id, userId, token){
+           const response = await axios.post(`http://127.0.0.1:8000/api/delete_product/${id}`, {
+            ...this.product,
+            user_id: userId,
+          }, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          this.fetchProducts();
+          return response;
+      }
   }
 }
 </script>
