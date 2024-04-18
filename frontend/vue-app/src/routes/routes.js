@@ -6,6 +6,7 @@ import Register from '../components/Register';
 import Dashboard from '../components/Dashboard';
 import AddProduct from '../components/AddProduct';
 import ProductList from '../components/ProductList';
+import EditProduct from '../components/EditProduct';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -33,6 +34,11 @@ const routes = [
         name: 'ProductList',
         path: '/products',
         component: ProductList
+    },
+    {
+        name: 'EditProduct',
+        path: '/products/edit/:id?',
+        component: EditProduct
     },
     {
         name: 'ContactList',

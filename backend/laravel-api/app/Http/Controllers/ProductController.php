@@ -32,8 +32,15 @@ class ProductController extends Controller{
 
     public function products(Request $request){
         $userId = $request->user()->id;
-        $products = Products::where('user_id', $userId)->get();
+         $products = Products::where('user_id', $userId)
+                   ->orderBy('created_at', 'desc')
+                   ->paginate(5);
         return response()->json($products);
+    }
+
+    public function getProduct($id){
+        $product = Products::find($id);
+        return response()->json($product);
     }
 
 }

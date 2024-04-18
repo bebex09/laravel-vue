@@ -8,31 +8,31 @@
 
         <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
             <router-link class="nav-link" to="/contacts" v-if="user">Contact List
                 <span class="visually-hidden">(current)</span>
             </router-link>
             </li>
             <li class="nav-item" v-if="user">
             <router-link class="nav-link" to="add">Add Contact</router-link>
+            </li> -->
+            <li class="nav-item" v-if="user">
+                <router-link class="nav-link" to="/add_products">Add Products</router-link>
             </li>
             <li class="nav-item" v-if="user">
-                <router-link class="nav-link" to="add_products">Add Products</router-link>
-            </li>
-            <li class="nav-item" v-if="user">
-                <router-link class="nav-link" to="products">Products</router-link>
+                <router-link class="nav-link" to="/products">Products</router-link>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto" v-if="!user">
             <li class="nav-item">
-                <router-link to="login" class="nav-link">Log in</router-link>
+                <router-link to="/login" class="nav-link">Log in</router-link>
             </li>
             <li class="nav-item">
-                <router-link to="register" class="nav-link">Sign Up</router-link>
+                <router-link to="/register" class="nav-link">Sign Up</router-link>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto" v-if="user">
-            <!-- <li class="navbar-text">Hi, {{ user.user.first_name }} {{ user.user.last_name }}</li>  -->
+            <li class="navbar-text">Hi, {{ user.first_name }} {{ user.last_name }}</li> 
             <li class="nav-item">
                 <a href="javascript:void(0)" @click="handleClick" class="nav-link">Log out</a>
             </li>

@@ -21,3 +21,6 @@ Route::post('store', [App\Http\Controllers\ProductController::class,'store']);
 //get products by user_id
 Route::get('products',[App\Http\Controllers\ProductController::class,'products'])->middleware('auth:api');
 
+//get product
+Route::get('getProduct/{id}',[App\Http\Controllers\ProductController::class,'getProduct']);
+
