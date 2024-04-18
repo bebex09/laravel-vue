@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-    <div class="container-fluid">
+    <div class="container">
         <router-link class="navbar-brand" to="/">Vue.js+Laravel API</router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -50,7 +50,7 @@
         methods:{
             handleClick(){
                 localStorage.removeItem('token');
-                this.$store.commit('setUser', null); // Commit the mutation directly
+                this.$store.commit('setUser', null); 
                 this.$router.push('/');
             }   
             

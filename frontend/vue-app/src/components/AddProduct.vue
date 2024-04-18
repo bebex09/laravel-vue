@@ -1,5 +1,5 @@
 <template>
-   <main class="login-form mt-5">
+   <main class="login-form mt-4">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                   <label for="product_name">Description</label>
-                  <textarea cols="30" rows="10" v-model="formData.description" class="form-control" placeholder="Enter Description"></textarea>
+                  <textarea cols="30" rows="5" v-model="formData.description" class="form-control" placeholder="Enter Description"></textarea>
                 </div>
                 <button class="btn btn-primary btn-block mt-4">Add</button>
               </form>

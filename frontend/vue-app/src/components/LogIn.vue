@@ -1,5 +1,5 @@
 <template>
-  <main class="login-form mt-5">
+  <main class="login-form mt-4">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6">
