@@ -8,33 +8,33 @@
               <span>Edit Product</span>
               <router-link to="/products" class="btn-close"></router-link>
             </div>
-            <div class="card-body"  >
-              <form @submit.prevent="submitData" novalidate v-if="this.user">
-                <div class="form-group">
-                  <label for="product_name">Product Name</label>
-                  <input type="text" v-model="product.name" class="form-control" required autofocus placeholder="Enter Product Name">
-                </div>
-                <div class="form-group">
-                  <label for="qty">Quantity</label>
-                  <input type="number" v-model="product.qty" class="form-control" required autofocus placeholder="Enter Quantity">
-                </div>
-                <div class="form-group">
-                  <label for="product_name">Price</label>
-                  <input type="number" v-model="product.price" class="form-control" required autofocus placeholder="Enter Price">
-                </div>
-                <div class="form-group">
-                  <label for="product_name">Description</label>
-                  <textarea cols="30" rows="5" v-model="product.description" class="form-control" placeholder="Enter Description"></textarea>
-                </div>
-                <button class="btn btn-primary btn-block mt-4">Add</button>
-              </form>
-              <div class="form-group" v-else>
-                <label for="no data">no data</label>
+                <div class="card-body" v-if="user">
+                  <form @submit.prevent="submitData" novalidate>
+                      <div class="form-group">
+                          <label for="product_name">Product Name</label>
+                          <input type="text" v-model="product.name" class="form-control" required autofocus placeholder="Enter Product Name">
+                      </div>
+                      <div class="form-group">
+                          <label for="qty">Quantity</label>
+                          <input type="number" v-model="product.qty" class="form-control" required autofocus placeholder="Enter Quantity">
+                      </div>
+                      <div class="form-group">
+                          <label for="product_name">Price</label>
+                          <input type="number" v-model="product.price" class="form-control" required autofocus placeholder="Enter Price">
+                      </div>
+                      <div class="form-group">
+                          <label for="product_name">Description</label>
+                          <textarea cols="30" rows="5" v-model="product.description" class="form-control" placeholder="Enter Description"></textarea>
+                      </div>
+                      <button class="btn btn-primary btn-block mt-4">Add</button>
+                  </form>
               </div>
-            </div>
-            
+              <div class="card-body" v-else>
+                  <div class="form-group">
+                      <label for="no_data">No data</label>
+                  </div>
+              </div>
           </div>
-          
         </div>
       </div>
     </div>
@@ -61,16 +61,37 @@ export default {
     };
   },
   created(){
-    this.getContentById();
+    this.edit();
   },
   methods: {
-   async getContentById() {
+    async edit(){
+       try {
+        const { token, user } = this.getUserData();
+        if (!user) {
+          console.error('User not logged in');
+          return;
+        }
+        const response = await this.getContentById(user, user.id, token);
+      } catch (error) {
+        console.error('Error adding product:', error);
+      }
+    },
+   async getContentById(user, userId, token) {
       let url = `http://127.0.0.1:8000/api/getProduct/${this.$route.params.id}`;
+      const id = this.$route.params.id;
       try {
-        const response = await axios.get(url);
-        this.product = response.data;
-        this.user = this.$store.getters.user;
-        console.log(this.user);
+        const response = await axios.post(url, {
+        // ...this.product,
+        user_id: userId,
+        id: id
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      this.product = response.data;
+      this.user = user;
 
       } catch (error) {
         console.error('Error fetching product data:', error);

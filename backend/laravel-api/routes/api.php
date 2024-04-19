@@ -11,22 +11,26 @@ Route::post('update_contact/{id}',[App\Http\Controllers\ContactController::class
 Route::post('login',[App\Http\Controllers\AuthController::class,'login']);
 Route::post('register',[App\Http\Controllers\AuthController::class,'register']);
 
-Route::get('user',[App\Http\Controllers\AuthController::class,'user'])->middleware('auth:api');
+Route::get('/user',[App\Http\Controllers\AuthController::class,'user'])->middleware('auth:api');
 
-//store product
+
 Route::middleware('auth:api')->group(function () {
+//store product
 Route::post('store', [App\Http\Controllers\ProductController::class,'store']);
-});
 
 //get products by user_id
-Route::get('products',[App\Http\Controllers\ProductController::class,'products'])->middleware('auth:api');
+Route::get('products',[App\Http\Controllers\ProductController::class,'products']);
 
 //get product by id
-Route::get('getProduct/{id}',[App\Http\Controllers\ProductController::class,'getProduct']);
+Route::post('getProduct/{id}',[App\Http\Controllers\ProductController::class,'getProduct']);
 
 //update product
-Route::post('update_product/{id}',[App\Http\Controllers\ProductController::class,'updateProduct'])->middleware('auth:api');
+Route::post('update_product/{id}',[App\Http\Controllers\ProductController::class,'updateProduct']);
 
 //delete product
-Route::post('delete_product/{id}',[App\Http\Controllers\ProductController::class,'deleteProduct'])->middleware('auth:api');
+Route::post('delete_product/{id}',[App\Http\Controllers\ProductController::class,'deleteProduct']);
+
+});
+
+
 

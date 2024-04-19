@@ -49,7 +49,7 @@ class AuthController extends Controller
         $user = Auth::user();
         if ($user) {
             return response()->json([
-                'user' => $user
+             'user' => $user
             ]);
         } else {
             return response()->json([

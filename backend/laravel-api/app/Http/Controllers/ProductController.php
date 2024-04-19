@@ -29,16 +29,37 @@ class ProductController extends Controller{
 
     public function products(Request $request){
         $userId = $request->user()->id;
-         $products = Products::where('user_id', $userId)
+        $products = Products::where('user_id', $userId)
                    ->orderBy('created_at', 'desc')
                    ->paginate(5);
         return response()->json($products);
     }
 
-    public function getProduct($id){
-        $product = Products::find($id);
+    public function getProduct($id, Request $request){
+
+
+
+        // if (!Auth::check()) {
+        //     return response()->json(['error' => 'Unauthenticated'], 401);
+        // }
+
+        // $user = Auth::user();
+
+        // $id = $request->user()->id;
+       $product = Products::where('id', $request['id'])->first();
+
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        if ($request->user()->id != $product->user_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         return response()->json($product);
-    }
+
+            
+        }
 
     public function updateProduct($id, Request $request){
 
