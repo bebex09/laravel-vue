@@ -18,9 +18,9 @@
 
 ### Not yet Done
 - ~~login process~~
-- session
+- ~~session~~
 - ~~logout~~
-- dashboard
-- list of products
-- alerts
+- ~~dashboard~~
+- ~~list of products~~
+- ~~alerts~~
   
